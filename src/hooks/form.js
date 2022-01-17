@@ -6,12 +6,18 @@ const useForm = (callback) => {
 
   const handleSubmit = (event) => {
     if (event) event.preventDefault();
+
     callback(values);
+
+    setValues(values => ({ text: values.text, assignee: values.assignee }));
   };
 
   const handleChange = (event) => {
-    event.persist();
-    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+    console.log('changing values...', values)
+
+    setValues(values => {
+      return { ...values, [event.target.name]: event.target.value }
+    });
   };
 
   return {
