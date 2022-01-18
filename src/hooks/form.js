@@ -13,7 +13,6 @@ const useForm = (callback) => {
   };
 
   const handleChange = (event) => {
-    console.log('changing values...', values)
 
     setValues(values => {
       return { ...values, [event.target.name]: event.target.value }
