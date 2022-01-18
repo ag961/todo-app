@@ -3,8 +3,7 @@ import useForm from '../../hooks/form.js';
 import { v4 as uuid } from 'uuid';
 import List from './list';
 import Form from './form';
-import SwitchComplete from './switchComplete.js';
-
+import ChangeSettings from '../changeSettings/changeSettings'
 
 const ToDo = () => {
 
@@ -47,8 +46,8 @@ const ToDo = () => {
   return (
     <>
       <h1>To Do List: {incomplete} items pending</h1>
-      <Form handleSubmit={handleSubmit} handleChange={handleChange} /> 
-      <SwitchComplete />
+      <Form handleSubmit={handleSubmit} handleChange={handleChange} />
+      <ChangeSettings />      
       <List list={list} toggleComplete={toggleComplete} />
     </>
   );
