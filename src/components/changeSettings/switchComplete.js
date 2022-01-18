@@ -10,19 +10,17 @@ export default function SwitchComplete() {
 
   const context = useContext(SettingsContext);
 
-  function changeCompleted(){
+  function changeCompleted() {
     context.setDisplayCompleted(context.displayCompleted ? false : true)
   }
 
   return (
-    <FormGroup>
-      <FormControlLabel label="Show Completed" control={
-        <Switch
-          checked={context.displayCompleted}
-          onChange={changeCompleted}
-          inputProps={{ 'aria-label': 'controlled' }}
-        />}        
-      />
-    </FormGroup>
+    <FormControlLabel label="Show Completed" control={
+      <Switch
+        checked={context.displayCompleted}
+        onChange={changeCompleted}
+        inputProps={{ 'aria-label': 'controlled' }}
+      />}
+    />
   );
 }

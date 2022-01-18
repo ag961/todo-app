@@ -6,7 +6,7 @@ import './list.scss';
 export default function List({ list, toggleComplete }) {
 
   const context = useContext(SettingsContext)
-  let n = context.itemsPerPage;
+  const n = context.itemsPerPage;
   const [itemsToSkip, setItemsToSkip] = useState(0)
   const [pagesArray, setPagesArray] = useState([1]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,8 +24,23 @@ export default function List({ list, toggleComplete }) {
       updatedPagesArray.push(i)
     }
     setPagesArray(updatedPagesArray)
-  }, [cleanList])
+    let updatedList = cleanList.slice(itemsToSkip, itemsToSkip + n);
 
+    if (updatedList.length === 0) {
+      let lastPage = pagesArray.length;
+      selectPage(lastPage);
+    }
+  }, [cleanList, n, pagesArray])
+
+  useEffect(() => {
+    let updatedList = cleanList.slice(itemsToSkip, itemsToSkip + n);
+
+    if (updatedList.length === 0) {
+      let lastPage = pagesArray.length;
+      selectPage(lastPage);
+    }
+    setListToDisplay(updatedList);
+  }, [pagesArray, currentPage])
 
   function nextPage() {
     setItemsToSkip(itemsToSkip + n);
@@ -41,19 +56,6 @@ export default function List({ list, toggleComplete }) {
     setItemsToSkip((page - 1) * n);
     setCurrentPage(page);
   }
-
-  useEffect(() => {
-    let updatedList = cleanList.slice(itemsToSkip, itemsToSkip + n);
-    if (updatedList.length === 0) {
-
-      let lastPage = pagesArray.length;
-      selectPage(lastPage);
-
-    }
-    setListToDisplay(updatedList);
-  }, [pagesArray, currentPage])
-
-
 
   return (
     <>
