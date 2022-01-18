@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "an app to manage a to-do list",
   "keywords": [],
-  "homepage": "https://github.com/ag961/todo-app/",
+  "homepage": "https://ag961.github.io/todo-app/",
   "main": "src/index.js",
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -28,6 +28,12 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
