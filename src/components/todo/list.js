@@ -6,35 +6,30 @@ import './list.scss';
 export default function List({ list, toggleComplete }) {
 
   const context = useContext(SettingsContext)
-
   let n = context.itemsPerPage;
   const [itemsToSkip, setItemsToSkip] = useState(0)
   const [pagesArray, setPagesArray] = useState([1]);
-  const [numberOfPages, setNumberOfPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-
-  let listFiltered = context.displayCompleted ? list : list.filter(item => !item.complete);
-
-  useEffect(() => {
-    let updatedNumberOfPages = Math.ceil(listFiltered.length / n);
-    if (numberOfPages !== updatedNumberOfPages) {
-      setNumberOfPages(updatedNumberOfPages ? updatedNumberOfPages : 1);
-    }
-  }, [listFiltered])
+  const [cleanList, setCleanList] = useState(list)
+  const [listToDisplay, setListToDisplay] = useState([])
 
   useEffect(() => {
-    if (numberOfPages > pagesArray[pagesArray.length - 1]) {
-      setPagesArray([...pagesArray, numberOfPages])
-    } else if (numberOfPages < pagesArray[pagesArray.length - 1]) {
-      setPagesArray(pagesArray.slice(0, numberOfPages))
-    }
-  }, [numberOfPages])
+    setCleanList(context.displayCompleted ? list : list.filter(item => !item.complete))
+  }, [list, context.displayCompleted])
 
-  let listToDisplay = listFiltered.slice(itemsToSkip, itemsToSkip + n);
+  useEffect(() => {
+    let updatedNumberOfPages = !Math.ceil(cleanList.length / n) ? 1 : Math.ceil(cleanList.length / n);
+    let updatedPagesArray = [];
+    for (let i = 1; i <= updatedNumberOfPages; i++) {
+      updatedPagesArray.push(i)
+    }
+    setPagesArray(updatedPagesArray)
+  }, [cleanList])
+
 
   function nextPage() {
     setItemsToSkip(itemsToSkip + n);
-    setCurrentPage(currentPage + 1)
+    setCurrentPage(currentPage + 1);
   }
 
   function prevPage() {
@@ -42,10 +37,23 @@ export default function List({ list, toggleComplete }) {
     setCurrentPage(currentPage - 1);
   }
 
-  function selectPage(page, event) {
-    setItemsToSkip((page - 1) * n)
+  function selectPage(page) {
+    setItemsToSkip((page - 1) * n);
     setCurrentPage(page);
   }
+
+  useEffect(() => {
+    let updatedList = cleanList.slice(itemsToSkip, itemsToSkip + n);
+    if (updatedList.length === 0) {
+
+      let lastPage = pagesArray.length;
+      selectPage(lastPage);
+
+    }
+    setListToDisplay(updatedList);
+  }, [pagesArray, currentPage])
+
+
 
   return (
     <>
@@ -60,7 +68,7 @@ export default function List({ list, toggleComplete }) {
           </div>
         })}
       </div>
-      <Pagination itemsToSkip={itemsToSkip} prevPage={prevPage} nextPage={nextPage} pagesArray={pagesArray} currentPage={currentPage} selectPage={selectPage} listFiltered={listFiltered} />
+      <Pagination itemsToSkip={itemsToSkip} prevPage={prevPage} nextPage={nextPage} pagesArray={pagesArray} currentPage={currentPage} selectPage={selectPage} cleanList={cleanList} />
     </>
   )
 }
