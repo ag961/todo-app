@@ -43,7 +43,6 @@ export default function List({ list, toggleComplete }) {
   }
 
   function selectPage(page, event) {
-    console.log(event)
     setItemsToSkip((page - 1) * n)
     setCurrentPage(page);
   }
