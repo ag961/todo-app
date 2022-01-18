@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "an app to manage a to-do list",
   "keywords": [],
-  "homepage": "https://github.com/ag961/todo-app",
+  "homepage": "https://github.com/ag961/todo-app/",
   "main": "src/index.js",
   "dependencies": {
     "@emotion/react": "^11.7.1",
