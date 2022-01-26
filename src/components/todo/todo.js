@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { Paper, Box } from '@mui/material/';
 import useForm from '../../hooks/form.js';
+import Auth from '../auth';
 import { v4 as uuid } from 'uuid';
 import List from './list';
 import Form from './form';
-import ChangeSettings from '../changeSettings/changeSettings'
+import ChangeSettings from '../changeSettings/changeSettings';
+import { SettingsContext } from '../../context/settings/context';
+import './todo.scss'
 
 const ToDo = () => {
+  const context = useContext(SettingsContext)
 
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
@@ -17,10 +22,10 @@ const ToDo = () => {
     setList([...list, item]);
   }
 
-  // function deleteItem(id) {
-  //   const items = list.filter(item => item.id !== id);
-  //   setList(items);
-  // }
+  function deleteItem(id) {
+    const items = list.filter(item => item.id !== id);
+    setList(items);
+  }
 
   function toggleComplete(id) {
 
@@ -30,7 +35,6 @@ const ToDo = () => {
       }
       return item;
     });
-
     setList(items);
   }
 
@@ -44,12 +48,24 @@ const ToDo = () => {
   }, [incomplete])
 
   return (
-    <>
-      <h1>To Do List: {incomplete} items pending</h1>
-      <Form handleSubmit={handleSubmit} handleChange={handleChange} />
-      <ChangeSettings />      
-      <List list={list} toggleComplete={toggleComplete} />
-    </>
+    <div className='main-box'>
+      <h1 className='list-heading'>To Do List: {incomplete} items pending</h1>
+      <div className='todo-box'>
+        <div className='input-settings'>
+          <Auth capability='create'>
+            <Form handleSubmit={handleSubmit} handleChange={handleChange} />
+          </Auth>
+          <ChangeSettings />
+        </div>
+        <div className='my-list'>
+          <Paper>
+            <Box p={2}>
+              <List list={context.displayCompleted ? list : list.filter(item => !item.complete)} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+            </Box>
+          </Paper>
+        </div>
+      </div>
+    </div>
   );
 };
 
