@@ -1,14 +1,14 @@
-# Lab 32 - Context API - Behaviors
+# Lab 33 - ```<Login />``` and ```<Auth />```
 
-Version 0.1.0
+Version 1.3.0
 
 ## To Do List Manager
 
 A Web Application for securely managing a To Do List
 
-## Phase 2: Incorporate configuration settings to the application
+## Phase 3: Adding security and access controls to the application.
 
-In this phase, we’ll be adding some top-level settings for the application, so that the user can make some display choices that the app will use by default.
+In this final phase, we’ll be requiring that users be logged in, in order to see the to do items. Additionally, based on their user type, they will be allowed (or denied) to perform actions such as editing or deleting them.
 
 ## Author
 
@@ -20,13 +20,11 @@ http://ag961.github.io/todo-app/
 
 ## Features
 
-Allow the user to make some decisions on how they would like the application to function. Specifically, we’ll let them make changes to 2 settings.
+In addition to features from Phase 1 and Phase 2:
 
-- Implement the Context API to make some basic application settings available to components
-  - How many To Do Items to show at once
-  - Whether or not to show completed items
-- Provide the users with a form where they can change the values for those settings
-  - This should be given in the form of a new component, perhaps linked to from the main navigation
-  - Hint: Use Browser Router to create the page/route/component for this
-- Save the users choices in Local Storage
-- Retrieve their preferences from Local Storage and apply them to the application on startup
+- As a user, I want to provide a way for other users to create new accounts
+- As a user, I want to provide a way for all users to login to their account
+- As a user, I want to make sure that my To Do items are only viewable to users that have logged in with a valid account.
+- As a user, I want to ensure that only fellow users that are allowed to “create”, based on their user type, can add new To Do Items
+- As a user, I want to ensure that only fellow users that are allowed to “update”, based on their user type, can mark To Do Items complete
+- As a user, I want to ensure that only fellow users that are allowed to “delete”, based on their user type, can delete new To Do Items

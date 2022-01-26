@@ -9,7 +9,7 @@ export default function changeSettings() {
 
 
   return (
-    <Box p={2} sx={{ p: 2, width: 'fit-content' }}>
+    <Box sx={{ width: 'fit-content' }}>
       <Paper>
         <Box p={2} >
           <FormGroup >

@@ -17,8 +17,8 @@ export default function SelectItemsPerPage() {
     <FormControlLabel label="Items Per Page" control={
       <ButtonGroup color="primary" aria-label="outlined primary button group">
         {buttonsArr.map(((num, i) =>
-          <Box m={1}>
-            <Button key={i} variant={num == context.itemsPerPage ? "outlined" : "contained"} onClick={changeItemsPerPage} value={num}>{num}
+          <Box key={i} m={1}>
+            <Button variant={num == context.itemsPerPage ? "outlined" : "contained"} onClick={changeItemsPerPage} value={num}>{num}
             </Button>
           </Box>
         ))}

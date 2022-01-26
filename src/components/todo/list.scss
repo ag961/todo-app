@@ -1,18 +1,8 @@
-.change-pages{
-  color: rgb(1, 90, 255);
-  margin: 1rem;
-  font-weight: bold;
-  font-size: large;
+.item-delete{
+display: flex;
+justify-content: space-between;
 }
 
-a:hover {
-  cursor: pointer;
-  text-decoration: underline;  
-}
-
-.current-page {
-  color: rgb(0, 0, 0);
-  margin: 1rem;
-  font-weight: bold;
-  font-size: large;
+.results{
+  min-height: 536px;
 }

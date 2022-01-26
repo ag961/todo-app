@@ -1,0 +1,34 @@
+.main-box{
+  margin: auto;
+  max-width: 1140px;
+  // border: rgb(178, 168, 34) dashed 0.2rem;
+}
+
+.todo-box{
+  display: flex;
+  // border: rgb(34, 178, 58) dashed 0.2rem;
+}
+.input-settings{
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 1rem;
+  // border: firebrick dashed 0.2rem;
+}
+
+.list-heading{
+  color: white;
+  background-color:rgb(65, 65, 65);
+  padding: 0.5rem;
+  // border: firebrick dashed 0.2rem;
+}
+
+.my-list{
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+body{
+  background-color: rgb(230, 230, 230);
+}
