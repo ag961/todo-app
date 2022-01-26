@@ -28,14 +28,14 @@ export default function LoginProvider(props) {
   function login(credentials) {
     if (credentials.username) {
       let user = testUsers[credentials.username];
-      let token = jwt.sign(user, process.env.REACT_APP_SECRET)
+      let token = jwt.sign(user, process.env.REACT_APP_SECRET || 'banana' )
       validateToken(token)
     }
   }
 
   function validateToken(token) {
     try {
-      let user = jwt.verify(token, process.env.REACT_APP_SECRET);
+      let user = jwt.verify(token, process.env.REACT_APP_SECRET || 'banana');
       setLoginState(true, user, token);
     } catch (e) {
       setLoginState(false, {}, null)
