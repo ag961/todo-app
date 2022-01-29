@@ -16,7 +16,7 @@ Ayrat Gimranov
 
 ## Live Site
 
-http://ag961.github.io/todo-app/
+https://ayrat-todo-app.netlify.app/
 
 ## Current registered users
 

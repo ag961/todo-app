@@ -33,7 +33,7 @@ export default function LoginProvider(props) {
       setLoginState(true, authenticatedUser, authenticatedUser.token)
     } catch (e) {
       if (e.response.status === 403) {
-        logout();                
+        logout();
         window.alert('Invalid Credentials');
       } else {
         console.log(e.response);
@@ -72,7 +72,9 @@ export default function LoginProvider(props) {
     const qs = new URLSearchParams(window.location.search);
     const cookieToken = cookie.load('auth');
     const token = qs.get('token') || cookieToken || null;
-    validateToken(token)
+    if (token) {
+      validateToken(token)
+    }
   }, [])
 
   const state = {
