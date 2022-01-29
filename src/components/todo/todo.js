@@ -27,7 +27,7 @@ const ToDo = () => {
     const config = {
       headers: { authorization: `Bearer ${token}` }
     };
-    await axios.post(`${process.env.REACT_APP_SERVER}/todo`, item, config)
+    await axios.post(`https://ayrat-todo-dev.herokuapp.com/todo`, item, config)
   }
 
   async function deleteItem(id) {
