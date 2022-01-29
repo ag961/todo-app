@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Button, Box } from '@mui/material/';
 import { SettingsContext } from '../../context/settings/context';
+import { LoginContext } from '../../context/auth/loginContext';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Auth from '../auth';
 import './list.scss';
-import { propTypes } from 'react-bootstrap/esm/Image';
 
 export default function List({ list, toggleComplete, deleteItem }) {
 
-  const context = useContext(SettingsContext)
+  const context = useContext(SettingsContext);
+  const capabilities = useContext(LoginContext).capabilities;
   const n = context.itemsPerPage;
   const [startIndex, setStartIndex] = useState(0);
   const [listToDisplay, setListToDisplay] = useState([]);
@@ -51,16 +52,14 @@ export default function List({ list, toggleComplete, deleteItem }) {
         {listToDisplay.map((item, i) => {
           return <div key={i}>
             <div className='item-delete'>
-              <p>{item.text}</p>
+              <h3>{item.text}</h3>
               <Auth capability='delete'>
                 <Button color="error" size="small" onClick={() => deleteItem(item.id)}>X</Button>
               </Auth>
             </div>
-            <p><small>Assigned to: {item.assignee}</small></p>
-            <p><small>Difficulty: {item.difficulty}</small></p>
-            <Auth capability='update'>
-              <button onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</button>
-            </Auth>
+            <p>Assigned to: {item.assignee}</p>
+            <p><small>Difficulty: {item.difficulty}</small></p>           
+              <Button disabled={capabilities.includes('update') ? false : true} variant="outlined" onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</Button>  
             <hr />
           </div>
         })}
@@ -73,7 +72,6 @@ export default function List({ list, toggleComplete, deleteItem }) {
       </ButtonGroup>
       {list.length > (startIndex + n) ? <button onClick={() => { turnPage(startIndex + n) }}>Next</button> : ''} */}
       <Box alignSelf='center'>
-
         {list.length === 0 ? '' : <Stack spacing={2}>
           <Pagination sx={{ margin: 'auto' }} count={pagesArr.length} page={currentPage} onChange={(e, value) => { turnPage((value - 1) * n) }} />
         </Stack>}

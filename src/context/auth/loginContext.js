@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import jwt from 'jsonwebtoken';
 import cookie from 'react-cookies';
-
-const testUsers = {
-  admin: { password: 'password', name: 'Administrator', role: 'admin', capabilities: ['create', 'read', 'update', 'delete'] },
-  editor: { password: 'password', name: 'Editor', role: 'editor', capabilities: ['read', 'update'] },
-  writer: { password: 'password', name: 'Writer', role: 'writer', capabilities: ['read', 'create'] },
-  guest: { password: 'password', name: 'Guest', role: 'guest', capabilities: ['read'] },
-};
+import axios from 'axios';
+import base64 from 'base-64';
 
 export const LoginContext = React.createContext();
 
@@ -25,21 +20,40 @@ export default function LoginProvider(props) {
     setLoginState(false, {}, null)
   }
 
-  function login(credentials) {
-    if (credentials.username) {
-      let user = testUsers[credentials.username];
-      let token = jwt.sign(user, process.env.REACT_APP_SECRET || 'banana' )
-      validateToken(token)
+  async function login(credentials) {
+    try {
+      let encodedCredentials = base64.encode(`${credentials.username}:${credentials.password}`)
+      const config = {
+        headers: {
+          authorization: `Basic ${encodedCredentials}`
+        }
+      }
+      const response = await axios.get(`${process.env.REACT_APP_SERVER}/signin`, config);
+      const authenticatedUser = response.data;
+      setLoginState(true, authenticatedUser, authenticatedUser.token)
+    } catch (e) {
+      if (e.response.status === 403) {
+        logout();                
+        window.alert('Invalid Credentials');
+      } else {
+        console.log(e.response);
+      }
     }
   }
 
-  function validateToken(token) {
+  async function validateToken(token) {
     try {
-      let user = jwt.verify(token, process.env.REACT_APP_SECRET || 'banana');
-      setLoginState(true, user, token);
+      const config = {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      }
+      const response = await axios.get(`${process.env.REACT_APP_SERVER}/verify`, config);
+      const authenticatedUser = response.data;
+      setLoginState(true, authenticatedUser, authenticatedUser.token)
     } catch (e) {
-      setLoginState(false, {}, null)
-      console.log('token verification failed', e)
+      logout();
+      window.alert('token verification failed');
     }
   }
 
@@ -49,9 +63,9 @@ export default function LoginProvider(props) {
 
   function setLoginState(loggedIn, user, token) {
     cookie.save('auth', token)
-    setLoggedIn(loggedIn);
-    setUser(user);
     setToken(token);
+    setUser(user);
+    setLoggedIn(loggedIn);
   }
 
   useEffect(() => {
@@ -63,9 +77,11 @@ export default function LoginProvider(props) {
 
   const state = {
     loggedIn,
+    token,
     login,
     logout,
-    can
+    can,
+    capabilities: user.capabilities
   }
 
   return (

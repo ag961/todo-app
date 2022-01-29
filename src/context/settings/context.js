@@ -13,8 +13,6 @@ export default function SettingProvider(props) {
    ? defaultSettings
    : JSON.parse(localStorage.getItem('todo-settings'))
 
-  console.log('retrieved values', retrievedValues)
-
   const [displayCompleted, setDisplayCompleted] = useState(retrievedValues.displayCompleted);
   const [itemsPerPage, setItemsPerPage] = useState(retrievedValues.itemsPerPage || 3);
 
@@ -23,7 +21,6 @@ export default function SettingProvider(props) {
      displayCompleted,
      itemsPerPage
    }
-   console.log(values);
    localStorage.setItem('todo-settings', JSON.stringify(values))
   })
  
