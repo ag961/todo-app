@@ -1,6 +1,7 @@
 {
   "name": "todo-manager",
   "version": "1.0.0",
+  "private": true,
   "description": "an app to manage a to-do list",
   "keywords": [],
   "homepage": "https://ag961.github.io/todo-app/",
@@ -24,7 +25,9 @@
     "react-if": "^4.1.1",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
-    "uuid": "^8.3.2"
+    "sass": "^1.49.0",
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
