@@ -1,14 +1,14 @@
-# Lab 33 - ```<Login />``` and ```<Auth />```
+# Lab 34 - API Integration
 
-Version 1.3.0
+Version 2.0.0
 
 ## To Do List Manager
 
 A Web Application for securely managing a To Do List
 
-## Phase 3: Adding security and access controls to the application.
+## Phase 3: Integrating with a live API
 
-In this final phase, we’ll be requiring that users be logged in, in order to see the to do items. Additionally, based on their user type, they will be allowed (or denied) to perform actions such as editing or deleting them.
+In this final phase, we’ll be requiring that users be logged in through a live authentication server, in order to see the to do items. Additionally, based on their user type, they will be allowed (or denied) to perform actions such as editing or deleting them. All To Do items will be stored in a database, accessed through a deployed API.
 
 ## Author
 
@@ -17,6 +17,21 @@ Ayrat Gimranov
 ## Live Site
 
 http://ag961.github.io/todo-app/
+
+## Current registered users
+
+1. Guest. Able to see list of items and change display settings (Capabilities - read).
+   - username: `guest`
+   - passord: `GUEST`
+2. Writer. Same functionality as guest + ability to add items to the list (Capabilities - read, create)
+   - username: `writer`
+   - password: `WRITER`
+3. Editor. Same functionality as writer + ability to update completion status (Capabilites - read, create, update)
+   - username: `editor`
+   - password: `EDITOR`
+4. Admin. Same functionality as writer + ability to delete items from the list (Capabilities - read, create, update)
+   - username: `admin`
+   - password: `admin`
 
 ## Features
 
