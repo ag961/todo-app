@@ -29,9 +29,9 @@ https://ayrat-todo-app.netlify.app/
 3. Editor. Same functionality as writer + ability to update completion status (Capabilites - read, create, update)
    - username: `editor`
    - password: `EDITOR`
-4. Admin. Same functionality as writer + ability to delete items from the list (Capabilities - read, create, update)
+4. Admin. Same functionality as writer + ability to delete items from the list (Capabilities - read, create, update, delete)
    - username: `admin`
-   - password: `admin`
+   - password: `ADMIN`
 
 ## Features
 

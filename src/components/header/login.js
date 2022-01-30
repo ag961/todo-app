@@ -24,7 +24,7 @@ export default function login() {
   return (
     <>
       <When condition={loginContext.loggedIn}>
-        <Button color='success' variant="contained" onClick={loginContext.logout}>Log Out</Button>
+        <Button color='success' variant="contained" onClick={() => {loginContext.logout()}}>Log Out</Button>
       </When>
       <When condition={!loginContext.loggedIn}>
         <form onSubmit={handleSubmit}>
