@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import jwt from 'jsonwebtoken';
 import cookie from 'react-cookies';
 import axios from 'axios';
 import base64 from 'base-64';
@@ -62,7 +61,7 @@ export default function LoginProvider(props) {
   }
 
   function setLoginState(loggedIn, user, token) {
-    cookie.save('auth', token)
+    cookie.save('auth', token);
     setToken(token);
     setUser(user);
     setLoggedIn(loggedIn);
@@ -71,8 +70,8 @@ export default function LoginProvider(props) {
   useEffect(() => {
     const qs = new URLSearchParams(window.location.search);
     const cookieToken = cookie.load('auth');
-    const token = qs.get('token') || cookieToken || null;
-    if (token) {
+    const token = qs.get('token') || cookieToken || null; 
+    if (token !== 'null' && token !== null) {
       validateToken(token)
     }
   }, [])
